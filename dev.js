@@ -413,6 +413,92 @@
     enhance();
   }
 
+  /* ---------- Code background (faded falling code + drifting symbols) ---------- */
+  (function codeBackground() {
+    const cv = document.createElement('canvas');
+    cv.className = 'code-bg';
+    cv.setAttribute('aria-hidden', 'true');
+    document.body.prepend(cv);
+    const ctx = cv.getContext('2d');
+    if (!ctx) return;
+
+    const TOKENS = ['{', '}', '</>', '=>', '()', ';', '[]', '0', '1', '#', 'if', 'var', 'int', 'API', 'GET', '200', 'git', 'C#', 'null', '&&', '//', 'fn', 'JWT', 'SQL', 'npm'];
+    const BIG = ['{ }', '</>', '=>', '[ ]', '0x1F', '#!', '&&', '//', 'λ', '::'];
+    const CELL = 22, TRAIL = 14, FONT = '13px "JetBrains Mono", ui-monospace, Menlo, monospace';
+    let w = 0, h = 0, cols = [], floaters = [], color = '#8f7547', maxA = .3, raf = 0, last = 0;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const pick = a => a[Math.floor(Math.random() * a.length)];
+
+    const readColors = () => {
+      const dark = root.getAttribute('data-theme') === 'dark';
+      color = getComputedStyle(root).getPropertyValue('--sand-600').trim() || '#8f7547';
+      maxA = dark ? .5 : .45;
+      if (reduceMotion) draw(0);
+    };
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      cv.width = w * dpr; cv.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.ceil(w / CELL);
+      cols = Array.from({ length: n }, (_, i) => ({
+        x: i * CELL + 4, y: rnd(-h, h), v: rnd(14, 38),
+        chars: Array.from({ length: TRAIL }, () => pick(TOKENS)), on: Math.random() < .55
+      }));
+      floaters = Array.from({ length: Math.max(5, Math.round(w / 220)) }, () => ({
+        x: rnd(0, w), y: rnd(0, h), vx: rnd(-6, 6), vy: rnd(-8, -2), s: rnd(40, 96), t: pick(BIG), a: rnd(.07, .15), r: rnd(-.3, .3)
+      }));
+      if (reduceMotion) draw(0);
+    }
+
+    function draw(dt) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = color;
+      ctx.font = FONT;
+      ctx.textBaseline = 'top';
+      for (const c of cols) {
+        if (!c.on) { if (!reduceMotion && Math.random() < .004) c.on = true; continue; }
+        c.y += c.v * dt;
+        if (c.y - TRAIL * 16 > h) { c.y = rnd(-h * .6, 0); c.v = rnd(14, 38); c.on = Math.random() < .7; c.chars[0] = pick(TOKENS); continue; }
+        for (let i = 0; i < TRAIL; i++) {
+          const y = c.y - i * 16;
+          if (y < -16 || y > h) continue;
+          ctx.globalAlpha = (1 - i / TRAIL) * (1 - i / TRAIL) * maxA;
+          ctx.fillText(c.chars[i], c.x, y);
+        }
+        if (!reduceMotion && Math.random() < dt * 3) { c.chars.pop(); c.chars.unshift(pick(TOKENS)); }
+      }
+      for (const f of floaters) {
+        f.x += f.vx * dt; f.y += f.vy * dt;
+        if (f.y < -f.s) { f.y = h + f.s; f.x = rnd(0, w); }
+        if (f.x < -f.s * 3) f.x = w + f.s; else if (f.x > w + f.s * 3) f.x = -f.s;
+        ctx.save();
+        ctx.globalAlpha = f.a;
+        ctx.translate(f.x, f.y); ctx.rotate(f.r);
+        ctx.font = `600 ${f.s}px "JetBrains Mono", ui-monospace, Menlo, monospace`;
+        ctx.fillText(f.t, 0, 0);
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    const loop = ts => {
+      const dt = Math.min(.05, (ts - last) / 1000 || 0);
+      if (ts - last >= 33) { last = ts; draw(dt || .033); }
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!reduceMotion && !raf) { last = performance.now(); raf = requestAnimationFrame(loop); } };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+
+    resize(); readColors();
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 150); });
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    new MutationObserver(readColors).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (reduceMotion) draw(0); });
+    start();
+  })();
+
   /* ---------- Console greeting ---------- */
   try {
     console.log('%cHey, fellow dev 👋', 'font:600 18px Georgia,serif;color:#8f7547');
