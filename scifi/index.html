@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerard Gibson | Software Developer — Control Interface</title>
+  <meta name="description" content="Gerard Gibson, software developer from Gqeberha, South Africa. Full-stack, backend and mobile projects built with C#/.NET, React, Node.js, Kotlin and Flutter, presented as a spacecraft control interface.">
+  <meta name="theme-color" content="#05070d">
+  <meta property="og:title" content="Gerard Gibson | Software Developer">
+  <meta property="og:description" content="Full-stack, backend and mobile developer. Explore the projects through a sci-fi control interface.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../Media/profile.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2305070d'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='26' fill='%2300f0ff'%3EGG%3C/text%3E%3C/svg%3E">
+
+  <!-- Marks the page as JS-enabled so the boot screen only shows when it can also be dismissed -->
+  <script>
+    document.documentElement.classList.add('js');
+    // Failsafe: never leave a visitor stuck behind the boot screen
+    setTimeout(function () { document.documentElement.classList.add('boot-timeout'); }, 15000);
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gerard Alexander Gibson",
+      "jobTitle": "Software Developer",
+      "address": { "@type": "PostalAddress", "addressLocality": "Gqeberha", "addressCountry": "ZA" },
+      "email": "mailto:gagibson959@gmail.com",
+      "sameAs": ["https://github.com/Gibo-alt", "https://www.linkedin.com/in/gerardalexander-gibson-347953288"]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Boot screen ===== -->
+  <div class="boot" id="boot" role="status" aria-live="polite">
+    <div class="boot-inner">
+      <p class="boot-title" id="bootTitle"></p>
+      <ul class="boot-log" id="bootLog"></ul>
+      <div class="boot-bar" aria-hidden="true"><i id="bootBar"></i></div>
+      <p class="boot-meta"><span id="bootPct">0%</span><span>PRESS ANY KEY TO SKIP</span></p>
+    </div>
+  </div>
+  <noscript><style>.boot{display:none!important}</style></noscript>
+
+  <!-- ===== Fixed layers ===== -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="fx fx-vignette" aria-hidden="true"></div>
+  <div class="fx fx-scan" aria-hidden="true"></div>
+  <div class="fx fx-grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><i class="cx"></i><i class="cy"></i><i class="ring"></i></div>
+  <div class="hud-read" aria-hidden="true"><span id="hudCoords">X 0000 · Y 0000</span><span id="hudScroll">SCROLL 000%</span><span id="hudClock">T+00:00</span></div>
+
+  <!-- ===== Navigation ===== -->
+  <header class="nav" id="nav">
+    <a href="#hero" class="brand glitch" aria-label="Gerard Gibson — back to top">GG<b>//</b>DEV</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu"><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#about" class="glitch">About</a>
+      <a href="#features" class="glitch">Systems</a>
+      <a href="#projects" class="glitch">Projects</a>
+      <a href="#stats" class="glitch">Stats</a>
+      <a href="#contact" class="glitch">Contact</a>
+      <a href="../" class="glitch nav-alt">Classic site</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="section hero" id="hero" data-section aria-labelledby="heroTitle">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="sys"><span class="dot"></span> SYS.01 // ONLINE</p>
+          <h1 id="heroTitle" class="title" data-scramble data-scramble-hover>Gerard Gibson</h1>
+          <p class="subtitle" data-type>Software developer. Full-stack, backend and mobile.</p>
+          <p class="lead" data-type>I build secure APIs, web platforms and Android apps with C# and ASP.NET Core, React and Node.js, Kotlin and Flutter. Final-year student, team lead, open to graduate and junior software roles.</p>
+          <div class="actions">
+            <a href="#projects" class="btn btn-primary glitch" data-magnetic>View projects</a>
+            <a href="#contact" class="btn glitch" data-magnetic>Open comms</a>
+          </div>
+          <p class="coords">LAT 33.96°S &nbsp;·&nbsp; LON 25.60°E &nbsp;·&nbsp; GQEBERHA, ZA</p>
+        </div>
+      </div>
+      <a class="scroll-cue glitch" href="#about" aria-label="Scroll to About"><span>SCROLL</span><i></i></a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about" data-section aria-labelledby="aboutTitle">
+      <div class="wrap two-col">
+        <div data-reveal>
+          <p class="sys">SYS.02 // PILOT PROFILE</p>
+          <h2 id="aboutTitle" class="title h2" data-scramble>About</h2>
+          <p data-type>I like the parts of software most people never see: the API contracts, the auth rules and the tests that keep a system honest.</p>
+          <p data-type>I'm in my final year of the IIE Bachelor of Computer and Information Sciences in Application Development at Emeris. I've built secure REST APIs with JWT and role-based access control, worked with SQL Server, MongoDB and Firebase, deployed to Microsoft Azure, and collaborated through Git with automated testing and CI.</p>
+          <p data-type>This year I led a six-member Work-Integrated Learning team building REGGY, a student registration platform for an institutional client, and took primary ownership of the API that connects its Flutter app and ASP.NET Core staff portal.</p>
+        </div>
+        <div class="panel-wrap" data-reveal>
+          <div class="panel" data-tilt>
+            <p class="panel-label">PILOT.DAT</p>
+            <dl class="readout">
+              <div><dt>NAME</dt><dd data-type>Gerard Alexander Gibson</dd></div>
+              <div><dt>ROLE</dt><dd data-type>Software developer / team lead</dd></div>
+              <div><dt>BASE</dt><dd data-type>Gqeberha, South Africa</dd></div>
+              <div><dt>RANK</dt><dd data-type>BCIS Application Development, 2026</dd></div>
+              <div><dt>STATUS</dt><dd data-type>Open to graduate and junior roles</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section class="section" id="features" data-section aria-labelledby="featuresTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <p class="sys">SYS.03 // ONBOARD SYSTEMS</p>
+          <h2 id="featuresTitle" class="title h2" data-scramble>What I build</h2>
+          <p data-type>Six systems, each tested end to end.</p>
+        </div>
+        <ul class="grid grid-3">
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.01</p><h3>Backend APIs</h3>
+            <p data-type>RESTful services with ASP.NET Core and Express. JWT auth, role-based access, validation and clean layered architecture.</p>
+            <p class="tags"><span>C#</span><span>ASP.NET Core</span><span>Node.js</span><span>JWT</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.02</p><h3>Full-stack web</h3>
+            <p data-type>React and Vite frontends or ASP.NET MVC portals talking to well-defined APIs, built for real users and real clients.</p>
+            <p class="tags"><span>React</span><span>Vite</span><span>MVC</span><span>HTML/CSS</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.03</p><h3>Mobile apps</h3>
+            <p data-type>Native Android in Kotlin and cross-platform apps in Flutter, with Firebase authentication and clean separation of UI and logic.</p>
+            <p class="tags"><span>Kotlin</span><span>Flutter</span><span>Android SDK</span><span>Firebase</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.04</p><h3>Data layer</h3>
+            <p data-type>Relational and document databases, EF Core migrations and sensible schemas that hold up as requirements change.</p>
+            <p class="tags"><span>SQL Server</span><span>Azure SQL</span><span>MongoDB</span><span>EF Core</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.05</p><h3>Cloud and DevOps</h3>
+            <p data-type>Azure deployments, Docker Compose environments and GitHub Actions pipelines that build and test on every push.</p>
+            <p class="tags"><span>Azure</span><span>Docker</span><span>GitHub Actions</span><span>Git</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MOD.06</p><h3>Testing and security</h3>
+            <p data-type>Unit, integration and API tests, plus hardening with Helmet, rate limiting, bcrypt and input sanitisation.</p>
+            <p class="tags"><span>xUnit</span><span>Jest</span><span>Vitest</span><span>Newman</span></p>
+          </div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects" data-section aria-labelledby="projectsTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <p class="sys">SYS.04 // MISSION LOG</p>
+          <h2 id="projectsTitle" class="title h2" data-scramble>Projects</h2>
+          <p data-type>Team, client and individual work, from API to app.</p>
+        </div>
+
+        <article class="featured" data-reveal><div class="panel" data-tilt>
+          <p class="panel-label">MISSION.00 // FEATURED · TEAM</p>
+          <h3>REGGY — Student Registration Platform</h3>
+          <p data-type>A multi-platform system that digitises student applications, document submission and staff verification for an institutional client. A Flutter app for students and an ASP.NET Core MVC portal for staff both rely on one Web API that enforces validation, identity and role-based authorisation.</p>
+          <p class="tags"><span>C#</span><span>ASP.NET Core Web API</span><span>.NET 10</span><span>Flutter</span><span>Firebase</span><span>GitHub</span></p>
+        </div></article>
+
+        <ul class="grid grid-3">
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.01 // FULL-STACK</p><h3>HustleHub+</h3>
+            <p data-type>Secure freelancer marketplace. React frontend and an Express API over MongoDB with JWT, bcrypt, roles, Helmet, rate limiting and NoSQL-injection protection.</p>
+            <p class="tags"><span>React 19</span><span>Express</span><span>MongoDB</span><span>Jest</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.02 // BACKEND</p><h3>TechMove</h3>
+            <p data-type>Service management for clients, contracts and requests on SQL Server. Business rules block requests against expired contracts. Docker Compose and CI included.</p>
+            <p class="tags"><span>ASP.NET Core</span><span>EF Core</span><span>Docker</span><span>xUnit</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.03 // ANDROID</p><h3>Impilo</h3>
+            <p data-type>Mental wellness app in native Kotlin with task, goal and AI-chat screens. GitHub Actions builds it on every push. Mood and journaling features in progress.</p>
+            <p class="tags"><span>Kotlin</span><span>Android SDK</span><span>Gradle</span><span>CI</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.04 // ANDROID</p><h3>Savora</h3>
+            <p data-type>Budget management app with Firebase authentication for tracking expenses, setting budgets and following savings goals, with income and expense dashboards.</p>
+            <p class="tags"><span>Kotlin</span><span>Firebase</span><span>Gradle</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.05 // WEB APP</p><h3>Claimy</h3>
+            <p data-type>Lecturer claims management with document uploads and role-based approval across Lecturer, Coordinator, Manager and HR users, backed by Azure SQL.</p>
+            <p class="tags"><span>ASP.NET MVC</span><span>Entity Framework</span><span>Azure SQL</span></p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel" data-tilt>
+            <p class="panel-label">MISSION.06 // CLOUD</p><h3>TechNog</h3>
+            <p data-type>Azure-based e-commerce system with product, customer and order management, built on Blob, Table, Queue and File storage.</p>
+            <p class="tags"><span>ASP.NET MVC</span><span>Azure Storage</span><span>C#</span></p>
+          </div></li>
+        </ul>
+
+        <article class="featured live" data-reveal><div class="panel" data-tilt>
+          <p class="panel-label">CLIENT BUILD // LIVE</p>
+          <h3>Colin Scott Music</h3>
+          <p data-type>A personal website for South African songwriter Colin Scott, with his story, embedded Spotify players and lyrics, in one polished responsive site.</p>
+          <p class="actions">
+            <a class="btn btn-primary glitch" data-magnetic href="https://gibo-alt.github.io/ClientWebsiteCS/" target="_blank" rel="noopener">Open live site</a>
+            <a class="btn glitch" data-magnetic href="https://github.com/Gibo-alt/ClientWebsiteCS" target="_blank" rel="noopener">Source</a>
+          </p>
+        </div></article>
+      </div>
+    </section>
+
+    <!-- ============ STATS (horizon) ============ -->
+    <section class="section horizon" id="stats" data-section aria-labelledby="statsTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <p class="sys">SYS.05 // TELEMETRY</p>
+          <h2 id="statsTitle" class="title h2" data-scramble>By the numbers</h2>
+        </div>
+        <ul class="grid grid-4">
+          <li class="card" data-reveal><div class="panel stat" data-tilt>
+            <p class="num"><span data-count="8" data-suffix="+">8+</span></p>
+            <p data-type>Projects across web, API and mobile</p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel stat" data-tilt>
+            <p class="num"><span data-count="6">6</span></p>
+            <p data-type>Developers led on the REGGY team</p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel stat" data-tilt>
+            <p class="num"><span data-count="5">5</span></p>
+            <p data-type>Languages: C#, JavaScript, Kotlin, Dart, SQL</p>
+          </div></li>
+          <li class="card" data-reveal><div class="panel stat" data-tilt>
+            <p class="num"><span data-count="2026" data-group="0">2026</span></p>
+            <p data-type>Expected graduation from Emeris</p>
+          </div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact" data-section aria-labelledby="contactTitle">
+      <div class="wrap two-col">
+        <div data-reveal>
+          <p class="sys">SYS.06 // OPEN CHANNEL</p>
+          <h2 id="contactTitle" class="title h2" data-scramble>Contact</h2>
+          <p data-type>I'm looking for a graduate or junior software engineering role, and I'm happy to talk about projects, collaborations or freelance work.</p>
+          <p class="actions"><a class="btn btn-primary glitch" data-magnetic href="mailto:gagibson959@gmail.com">Transmit message</a></p>
+        </div>
+        <ul class="channels" data-reveal>
+          <li><a class="chan glitch" href="mailto:gagibson959@gmail.com"><small>EMAIL</small><span>gagibson959@gmail.com</span></a></li>
+          <li><a class="chan glitch" href="https://www.linkedin.com/in/gerardalexander-gibson-347953288" target="_blank" rel="noopener"><small>LINKEDIN</small><span>Gerard Alexander Gibson</span></a></li>
+          <li><a class="chan glitch" href="https://github.com/Gibo-alt" target="_blank" rel="noopener"><small>GITHUB</small><span>@Gibo-alt</span></a></li>
+          <li><a class="chan glitch" href="https://wa.me/27689880368?text=Hi%20Gerard%2C%20I%20saw%20your%20portfolio" target="_blank" rel="noopener"><small>WHATSAPP</small><span>Message me</span></a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" data-section>
+    <div class="wrap foot">
+      <p class="sys">SYS.99 // END OF TRANSMISSION</p>
+      <p data-type>© <span id="year">2026</span> Gerard Alexander Gibson · Gqeberha, South Africa</p>
+      <p class="foot-links">
+        <a class="glitch" href="https://github.com/Gibo-alt" target="_blank" rel="noopener">GitHub</a>
+        <a class="glitch" href="https://www.linkedin.com/in/gerardalexander-gibson-347953288" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="glitch" href="../blog/">Blog</a>
+        <a class="glitch" href="../">Classic site</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+  <script nomodule>document.documentElement.classList.add('boot-timeout');</script>
+</body>
+</html>
