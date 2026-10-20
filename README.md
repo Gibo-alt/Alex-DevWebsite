@@ -78,3 +78,7 @@ files by hand, run `python3 build-blog-data.py` afterwards to refresh it.
 - **Terminal**: the `#terminal` section on the home page is interactive (`help`, `projects`, `skills`, `github`, `contact`, plus a few easter eggs). It reads its content from the page itself, so it stays in sync.
 - **Dark mode**: follows the OS setting until the visitor picks a theme; stored in `localStorage`.
 - **Articles**: syntax-highlighted code blocks with copy buttons, heading anchors and a copy-link button.
+
+## 3D space-opera version
+
+An alternative, 3D version of the site lives in `scifi/` (see `scifi/README.md`). The classic site above is unchanged.
