@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Blog Admin | Gerard Gibson</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2323201b'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia,serif' font-size='28' fill='%23ece2cf'%3EGG%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { background: var(--paper); }
+    .admin-bar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .admin-bar .container { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .admin-bar .who { font-size: 13.5px; color: var(--muted); display: flex; gap: 14px; align-items: center; }
+    .wrap { width: min(1240px, 100% - 32px); margin: 32px auto 80px; }
+    .panel { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 28px; }
+    .panel h1 { font-size: 34px; font-weight: 400; margin-bottom: 8px; }
+    .panel h2 { font-size: 24px; }
+    .hint { color: var(--muted); font-size: 14.5px; margin: 0 0 22px; }
+    .hint a { color: var(--sand-600); }
+    label { display: block; font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--ink-soft); margin-bottom: 6px; }
+    input[type=text], input[type=password], input[type=date], textarea, select {
+      width: 100%; font: inherit; font-size: 15px; color: var(--ink);
+      padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line); background: var(--paper);
+    }
+    input:focus, textarea:focus { outline: 2px solid var(--sand-400); outline-offset: 0; background: var(--white); }
+    textarea { resize: vertical; }
+    .grid { display: grid; gap: 16px; }
+    .g2 { grid-template-columns: 1fr 1fr; }
+    .g4 { grid-template-columns: 2fr 1fr 1fr 1fr; }
+    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .check { display: inline-flex; gap: 8px; align-items: center; font-size: 14.5px; font-weight: 500; letter-spacing: 0; color: var(--ink-soft); margin: 0; }
+    .btn--sm { padding: 8px 14px; font-size: 13.5px; }
+    .btn--danger { background: #fff; border-color: #e6c3b8; color: #9a3b22; }
+    .btn--danger:hover { border-color: #9a3b22; }
+    .btn[disabled] { opacity: .5; pointer-events: none; }
+    .list { display: grid; gap: 10px; margin-top: 20px; }
+    .item { display: grid; grid-template-columns: 96px 1fr auto; gap: 18px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+    .item img, .item .ph { width: 96px; height: 54px; object-fit: cover; border-radius: 8px; background: var(--sand-100); }
+    .item h3 { font-size: 18px; margin-bottom: 4px; }
+    .item .post-meta { font-size: 13px; }
+    .badge { font-family: var(--font-mono); font-size: 11px; padding: 3px 8px; border-radius: 6px; background: #f3e3c9; color: #8a5a12; margin-left: 8px; }
+    .editor { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px; border: 1px solid var(--line); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--sand-50); }
+    .toolbar button { font: inherit; font-size: 13px; font-weight: 600; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--white); cursor: pointer; color: var(--ink-soft); }
+    .toolbar button:hover { border-color: var(--sand-400); color: var(--ink); }
+    #body { min-height: 560px; border-radius: 0 0 10px 10px; font-family: var(--font-mono); font-size: 14px; line-height: 1.65; }
+    .preview { border: 1px solid var(--line); border-radius: 10px; padding: 26px 30px; background: var(--white); max-height: 640px; overflow: auto; }
+    .preview .prose { font-size: 16.5px; }
+    .preview-title { font-family: var(--font-display); font-size: 32px; line-height: 1.2; margin: 6px 0 18px; color: var(--ink); }
+    .cover-prev { margin-top: 10px; border-radius: 10px; max-height: 140px; object-fit: cover; width: 100%; display: none; border: 1px solid var(--line); }
+    .toast { position: fixed; right: 20px; bottom: 20px; z-index: 60; background: var(--ink); color: var(--paper); padding: 14px 18px; border-radius: 12px; box-shadow: var(--shadow-lg); font-size: 14.5px; max-width: 380px; opacity: 0; transform: translateY(10px); transition: .25s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: none; }
+    .toast.err { background: #7a2c18; }
+    .hidden { display: none !important; }
+    .tabs { display: none; gap: 6px; margin-top: 16px; }
+    .tabs button { font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); cursor: pointer; }
+    .tabs button.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    @media (max-width: 900px) {
+      .editor { grid-template-columns: 1fr; }
+      .tabs { display: flex; }
+      .editor.show-edit .preview-col { display: none; }
+      .editor.show-preview .edit-col { display: none; }
+      .g2, .g4 { grid-template-columns: 1fr; }
+      .item { grid-template-columns: 1fr; }
+      .item img, .item .ph { width: 100%; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="admin-bar">
+    <div class="container">
+      <a href="../" class="brand"><span class="brand-mark">GG</span><span class="brand-name">Blog admin</span></a>
+      <div class="who" id="who"></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ===== Connect ===== -->
+    <section class="panel" id="connectView" style="max-width:640px;margin:40px auto">
+      <h1>Manage articles</h1>
+      <p class="hint">Changes are saved straight to your GitHub repository, and the site updates after GitHub Pages rebuilds (usually about a minute). You need a GitHub <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained personal access token</a> with access to only this repository and <b>Contents: Read and write</b> permission.</p>
+      <form id="connectForm" class="grid">
+        <div class="grid g2">
+          <div><label for="owner">GitHub owner</label><input type="text" id="owner" value="Gibo-alt" required></div>
+          <div><label for="repo">Repository</label><input type="text" id="repo" value="Alex_Website" required></div>
+        </div>
+        <div><label for="branch">Branch</label><input type="text" id="branch" value="main" required></div>
+        <div><label for="token">Access token</label><input type="password" id="token" autocomplete="off" placeholder="github_pat_…" required></div>
+        <label class="check"><input type="checkbox" id="remember"> Remember on this device (only use on your own computer)</label>
+        <div class="row"><button class="btn btn--primary" type="submit" id="connectBtn">Connect</button></div>
+      </form>
+    </section>
+
+    <!-- ===== List ===== -->
+    <section class="panel hidden" id="listView">
+      <div class="row" style="justify-content:space-between">
+        <div><h1>Articles</h1><p class="hint" style="margin:0">Create, edit or delete posts. Drafts are hidden from the public blog.</p></div>
+        <div class="row">
+          <a class="btn btn--ghost btn--sm" href="./" target="_blank" rel="noopener">View blog ↗</a>
+          <button class="btn btn--primary" id="newBtn">+ New article</button>
+        </div>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
+
+    <!-- ===== Editor ===== -->
+    <section class="panel hidden" id="editView">
+      <div class="row" style="justify-content:space-between">
+        <div class="row"><button class="btn btn--ghost btn--sm" id="backBtn">← Articles</button><h2 id="editHeading">New article</h2></div>
+        <div class="row">
+          <label class="check"><input type="checkbox" id="draft"> Save as draft</label>
+          <button class="btn btn--danger btn--sm hidden" id="deleteBtn">Delete</button>
+          <button class="btn btn--primary" id="saveBtn">Publish</button>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:22px">
+        <div class="grid g4">
+          <div><label for="title">Title</label><input type="text" id="title" placeholder="A clear, specific title"></div>
+          <div><label for="slug">URL slug</label><input type="text" id="slug" placeholder="auto-from-title"></div>
+          <div><label for="date">Date</label><input type="date" id="date"></div>
+          <div><label for="tags">Tags (comma separated)</label><input type="text" id="tags" placeholder="AI, Careers"></div>
+        </div>
+        <div class="grid g2">
+          <div><label for="excerpt">Excerpt (shown on cards)</label><textarea id="excerpt" rows="3" maxlength="240" placeholder="One or two sentences that sum the article up."></textarea></div>
+          <div>
+            <label for="cover">Cover image</label>
+            <div class="row"><input type="text" id="cover" placeholder="images/my-cover.jpg" style="flex:1"><button class="btn btn--ghost btn--sm" id="coverUploadBtn" type="button">Upload…</button></div>
+            <img class="cover-prev" id="coverPrev" alt="Cover preview">
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs"><button class="active" data-t="edit">Write</button><button data-t="preview">Preview</button></div>
+      <div class="editor show-edit" id="editor">
+        <div class="edit-col">
+          <div class="toolbar" id="toolbar">
+            <button type="button" data-md="h2">H2</button>
+            <button type="button" data-md="h3">H3</button>
+            <button type="button" data-md="bold"><b>B</b></button>
+            <button type="button" data-md="italic"><i>I</i></button>
+            <button type="button" data-md="link">Link</button>
+            <button type="button" data-md="ul">• List</button>
+            <button type="button" data-md="ol">1. List</button>
+            <button type="button" data-md="quote">Quote</button>
+            <button type="button" data-md="code">Code</button>
+            <button type="button" data-md="table">Table</button>
+            <button type="button" data-md="image">Insert image…</button>
+          </div>
+          <textarea id="body" placeholder="Write your article in Markdown…"></textarea>
+          <p class="hint" style="margin:8px 0 0" id="wordCount">0 words</p>
+        </div>
+        <div class="preview-col">
+          <div class="preview"><div class="preview-title" id="pvTitle">Untitled</div><div class="prose" id="pvBody"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" class="hidden">
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const KEY = 'gg-blog-admin';
+    const POSTS_PATH = 'blog/posts.json';
+    let cfg = null;          // { owner, repo, branch, token }
+    let posts = [];          // contents of posts.json
+    let postsSha = null;     // sha of posts.json, needed to update it
+    let editing = null;      // original slug when editing, null for new
+    let bodySha = null;      // sha of the article's .md
+    let dirty = false;
+
+    /* ---------- small helpers ---------- */
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const slugify = s => s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+    const today = () => new Date().toISOString().slice(0, 10);
+    let toastT;
+    function toast(msg, err) {
+      const t = $('toast'); t.textContent = msg; t.className = 'toast show' + (err ? ' err' : '');
+      clearTimeout(toastT); toastT = setTimeout(() => t.className = 'toast', err ? 6000 : 3200);
+    }
+    const b64encode = str => { const bytes = new TextEncoder().encode(str); let bin = ''; for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(bin); };
+    const b64decode = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\n/g, '')), c => c.charCodeAt(0)));
+    const store = {
+      load() { try { return JSON.parse(localStorage.getItem(KEY) || sessionStorage.getItem(KEY)); } catch (e) { return null; } },
+      save(c, remember) { try { const s = JSON.stringify(c); (remember ? localStorage : sessionStorage).setItem(KEY, s); (remember ? sessionStorage : localStorage).removeItem(KEY); } catch (e) {} },
+      clear() { try { localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); } catch (e) {} }
+    };
+
+    /* ---------- GitHub Contents API ---------- */
+    async function gh(path, opts = {}) {
+      const url = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/${path.split('/').map(encodeURIComponent).join('/')}`;
+      const res = await fetch(opts.method ? url : url + '?ref=' + encodeURIComponent(cfg.branch), {
+        method: opts.method || 'GET',
+        headers: { Authorization: 'Bearer ' + cfg.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opts.body ? { 'Content-Type': 'application/json' } : {}) },
+        body: opts.body ? JSON.stringify(opts.body) : undefined,
+        cache: 'no-store'
+      });
+      if (res.status === 404 && !opts.method) return null;
+      if (!res.ok) {
+        let m = res.status + ''; try { m = (await res.json()).message || m; } catch (e) {}
+        if (res.status === 401) m = 'The token was rejected. Check it hasn’t expired.';
+        if (res.status === 403) m = 'The token doesn’t have write access to this repository (needs Contents: Read and write).';
+        if (res.status === 409) m = 'The file changed on GitHub since you opened it. Reload and try again.';
+        throw new Error(m);
+      }
+      return res.status === 204 ? null : res.json();
+    }
+    const getFile = async path => { const f = await gh(path); return f ? { sha: f.sha, text: b64decode(f.content) } : null; };
+    const putFile = (path, base64, message, sha) => gh(path, { method: 'PUT', body: { message, content: base64, branch: cfg.branch, ...(sha ? { sha } : {}) } });
+    const delFile = (path, message, sha) => gh(path, { method: 'DELETE', body: { message, sha, branch: cfg.branch } });
+
+    /* ---------- views ---------- */
+    function show(view) {
+      ['connectView', 'listView', 'editView'].forEach(v => $(v).classList.toggle('hidden', v !== view));
+      window.scrollTo(0, 0);
+    }
+    function renderWho() {
+      $('who').innerHTML = cfg ? `<span>${esc(cfg.owner)}/${esc(cfg.repo)} · ${esc(cfg.branch)}</span><button class="btn btn--ghost btn--sm" id="logout">Sign out</button>` : '';
+      if (cfg) $('logout').onclick = () => { if (dirty && !confirm('Discard unsaved changes?')) return; store.clear(); cfg = null; dirty = false; renderWho(); show('connectView'); };
+    }
+
+    async function loadPosts() {
+      const f = await getFile(POSTS_PATH);
+      if (f) { posts = JSON.parse(f.text); postsSha = f.sha; } else { posts = []; postsSha = null; }
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    function renderList() {
+      $('list').innerHTML = posts.length ? posts.map(p => `
+        <div class="item">
+          ${p.cover ? `<img src="${esc(p.cover)}" alt="">` : '<div class="ph"></div>'}
+          <div>
+            <h3>${esc(p.title)}${p.draft ? '<span class="badge">DRAFT</span>' : ''}</h3>
+            <div class="post-meta"><span>${esc(p.date)}</span><span>·</span><span>${esc(p.readTime || '')}</span><span>·</span><span>${esc((p.tags || []).join(', '))}</span></div>
+          </div>
+          <div class="row">
+            ${p.draft ? '' : `<a class="btn btn--ghost btn--sm" href="post.html?slug=${encodeURIComponent(p.slug)}" target="_blank" rel="noopener">View</a>`}
+            <button class="btn btn--ghost btn--sm" data-edit="${esc(p.slug)}">Edit</button>
+            <button class="btn btn--danger btn--sm" data-del="${esc(p.slug)}">Delete</button>
+          </div>
+        </div>`).join('') : '<p class="empty">No articles yet. Create your first one.</p>';
+    }
+
+    /* ---------- connect ---------- */
+    $('connectForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      cfg = { owner: $('owner').value.trim(), repo: $('repo').value.trim(), branch: $('branch').value.trim(), token: $('token').value.trim() };
+      $('connectBtn').disabled = true; $('connectBtn').textContent = 'Connecting…';
+      try {
+        await loadPosts();
+        store.save(cfg, $('remember').checked);
+        renderWho(); renderList(); show('listView');
+        toast('Connected to ' + cfg.owner + '/' + cfg.repo);
+      } catch (err) { cfg = null; toast(err.message, true); }
+      $('connectBtn').disabled = false; $('connectBtn').textContent = 'Connect';
+    });
+
+    /* ---------- list actions ---------- */
+    $('newBtn').onclick = () => openEditor(null);
+    $('list').addEventListener('click', async e => {
+      const ed = e.target.closest('[data-edit]'); const de = e.target.closest('[data-del]');
+      if (ed) openEditor(ed.dataset.edit);
+      if (de) deletePost(de.dataset.del);
+    });
+
+    async function deletePost(slug) {
+      const p = posts.find(x => x.slug === slug); if (!p) return;
+      if (!confirm(`Delete “${p.title}”? This removes it from the site.`)) return;
+      try {
+        toast('Deleting…');
+        await loadPosts(); // refresh sha
+        const md = await gh('blog/posts/' + slug + '.md');
+        if (md) await delFile('blog/posts/' + slug + '.md', 'Delete article: ' + p.title, md.sha);
+        const next = posts.filter(x => x.slug !== slug);
+        const res = await putFile(POSTS_PATH, b64encode(JSON.stringify(next, null, 2) + '\n'), 'Remove article from index: ' + p.title, postsSha);
+        posts = next; postsSha = res.content.sha;
+        await rebuildBundle(next);
+        renderList(); if (!$('editView').classList.contains('hidden')) show('listView');
+        dirty = false;
+        toast('Deleted. The site updates in about a minute.');
+      } catch (err) { toast(err.message, true); }
+    }
+
+    /* ---------- editor ---------- */
+    async function openEditor(slug) {
+      if (dirty && !confirm('Discard unsaved changes?')) return;
+      editing = slug; bodySha = null;
+      const p = slug ? posts.find(x => x.slug === slug) : null;
+      $('editHeading').textContent = p ? 'Edit article' : 'New article';
+      $('deleteBtn').classList.toggle('hidden', !p);
+      $('title').value = p ? p.title : '';
+      $('slug').value = p ? p.slug : ''; $('slug').dataset.touched = p ? '1' : '';
+      $('date').value = p ? p.date : today();
+      $('tags').value = p ? (p.tags || []).join(', ') : '';
+      $('excerpt').value = p ? p.excerpt : '';
+      $('cover').value = p ? (p.cover || '') : '';
+      $('draft').checked = !!(p && p.draft);
+      $('body').value = '';
+      show('editView'); updateCover(); updateDraftBtn();
+      if (p) {
+        $('body').value = 'Loading…';
+        try { const f = await getFile('blog/posts/' + p.slug + '.md'); $('body').value = f ? f.text : ''; bodySha = f ? f.sha : null; }
+        catch (err) { $('body').value = ''; toast(err.message, true); }
+      }
+      renderPreview(); dirty = false;
+    }
+    $('backBtn').onclick = () => { if (dirty && !confirm('Discard unsaved changes?')) return; dirty = false; renderList(); show('listView'); };
+    $('deleteBtn').onclick = () => editing && deletePost(editing);
+
+    $('title').addEventListener('input', () => { if (!$('slug').dataset.touched) $('slug').value = slugify($('title').value); });
+    $('slug').addEventListener('input', () => { $('slug').dataset.touched = '1'; });
+    $('slug').addEventListener('blur', () => { $('slug').value = slugify($('slug').value); });
+    ['title', 'slug', 'date', 'tags', 'excerpt', 'cover', 'body', 'draft'].forEach(id => $(id).addEventListener('input', () => { dirty = true; }));
+    $('draft').addEventListener('change', () => { dirty = true; updateDraftBtn(); });
+    function updateDraftBtn() { $('saveBtn').textContent = $('draft').checked ? 'Save draft' : 'Publish'; }
+
+    let pvT;
+    $('body').addEventListener('input', () => { clearTimeout(pvT); pvT = setTimeout(renderPreview, 150); });
+    $('title').addEventListener('input', renderPreview);
+    $('cover').addEventListener('input', updateCover);
+    function renderPreview() {
+      const md = $('body').value;
+      $('pvTitle').textContent = $('title').value || 'Untitled';
+      $('pvBody').innerHTML = DOMPurify.sanitize(marked.parse(md));
+      const words = (md.match(/\S+/g) || []).length;
+      $('wordCount').textContent = `${words} words · about ${Math.max(1, Math.round(words / 220))} min read`;
+    }
+    function updateCover() { const v = $('cover').value.trim(); const im = $('coverPrev'); im.style.display = v ? 'block' : 'none'; if (v) im.src = v; }
+
+    // mobile tabs
+    $('tabs').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      $('tabs').querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+      $('editor').className = 'editor show-' + b.dataset.t;
+      if (b.dataset.t === 'preview') renderPreview();
+    });
+
+    /* ---------- toolbar ---------- */
+    function wrap(before, after, placeholder) {
+      const ta = $('body'); const s = ta.selectionStart, e = ta.selectionEnd;
+      const sel = ta.value.slice(s, e) || placeholder || '';
+      ta.setRangeText(before + sel + (after || ''), s, e, 'end');
+      ta.focus(); ta.setSelectionRange(s + before.length, s + before.length + sel.length);
+      ta.dispatchEvent(new Event('input'));
+    }
+    function linePrefix(prefix) {
+      const ta = $('body'); const s = ta.selectionStart, e = ta.selectionEnd;
+      const start = ta.value.lastIndexOf('\n', s - 1) + 1;
+      const block = ta.value.slice(start, e) || 'Text';
+      let n = 0;
+      const out = block.split('\n').map(l => (typeof prefix === 'function' ? prefix(++n) : prefix) + l).join('\n');
+      ta.setRangeText(out, start, e, 'end'); ta.focus(); ta.dispatchEvent(new Event('input'));
+    }
+    $('toolbar').addEventListener('click', e => {
+      const b = e.target.closest('[data-md]'); if (!b) return;
+      switch (b.dataset.md) {
+        case 'h2': linePrefix('## '); break;
+        case 'h3': linePrefix('### '); break;
+        case 'bold': wrap('**', '**', 'bold text'); break;
+        case 'italic': wrap('*', '*', 'italic text'); break;
+        case 'link': { const url = prompt('Link URL', 'https://'); if (url) wrap('[', '](' + url + ')', 'link text'); break; }
+        case 'ul': linePrefix('- '); break;
+        case 'ol': linePrefix(n => n + '. '); break;
+        case 'quote': linePrefix('> '); break;
+        case 'code': wrap('\n```\n', '\n```\n', 'code here'); break;
+        case 'table': wrap('\n| Column | Column |\n|---|---|\n| ', ' | Value |\n', 'Value'); break;
+        case 'image': pickImage('body'); break;
+      }
+    });
+
+    /* ---------- image uploads ---------- */
+    let pickTarget = 'body';
+    $('coverUploadBtn').onclick = () => pickImage('cover');
+    function pickImage(target) { pickTarget = target; $('fileInput').value = ''; $('fileInput').click(); }
+    $('fileInput').addEventListener('change', async () => {
+      const file = $('fileInput').files[0]; if (!file) return;
+      if (file.size > 5 * 1024 * 1024) return toast('Please use an image under 5 MB.', true);
+      const ext = (file.name.split('.').pop() || 'png').toLowerCase();
+      const base = slugify(file.name.replace(/\.[^.]+$/, '')) || 'image';
+      const name = `${base}-${Date.now().toString(36)}.${ext}`;
+      const path = 'blog/images/' + name;
+      try {
+        toast('Uploading ' + file.name + '…');
+        const dataUrl = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(file); });
+        await putFile(path, dataUrl.split(',')[1], 'Upload blog image: ' + name);
+        const rel = 'images/' + name;
+        if (pickTarget === 'cover') { $('cover').value = rel; updateCover(); dirty = true; }
+        else {
+          const alt = prompt('Describe the image (alt text)', base.replace(/-/g, ' ')) || '';
+          wrap('\n![' + alt + '](' + rel + ')\n', '', '');
+        }
+        // Image is on GitHub but not yet served by Pages; preview it from the local file meanwhile.
+        const local = URL.createObjectURL(file);
+        document.querySelectorAll(`img[src="${rel}"]`).forEach(i => { i.onerror = () => { i.src = local; }; });
+        if (pickTarget === 'cover') $('coverPrev').src = local;
+        setTimeout(renderPreviewWithLocal(rel, local), 0);
+        toast('Image uploaded.');
+      } catch (err) { toast(err.message, true); }
+    });
+    const localImages = {};
+    function renderPreviewWithLocal(rel, local) { localImages[rel] = local; return () => { renderPreview(); fixLocal(); }; }
+    function fixLocal() { document.querySelectorAll('#pvBody img').forEach(i => { const src = i.getAttribute('src'); if (localImages[src]) i.src = localImages[src]; }); }
+    $('body').addEventListener('input', () => setTimeout(fixLocal, 200));
+
+    /* ---------- offline bundle (blog/posts-data.js) ---------- */
+    // Lets the blog work when the site is opened from disk (file://).
+    async function rebuildBundle(list, known) {
+      const bodies = {};
+      for (const p of list) {
+        if (known && known[p.slug] != null) { bodies[p.slug] = known[p.slug]; continue; }
+        try { const f = await getFile('blog/posts/' + p.slug + '.md'); if (f) bodies[p.slug] = f.text; } catch (e) {}
+      }
+      const js = '/* Generated from posts.json + posts/*.md. Do not edit by hand. */\nwindow.BLOG_DATA = ' + JSON.stringify({ posts: list, bodies }, null, 1) + ';\n';
+      const cur = await gh('blog/posts-data.js');
+      await putFile('blog/posts-data.js', b64encode(js), 'Rebuild offline blog bundle', cur ? cur.sha : undefined);
+    }
+
+    /* ---------- save (create / update) ---------- */
+    $('saveBtn').onclick = async () => {
+      const title = $('title').value.trim();
+      const slug = slugify($('slug').value || title);
+      const body = $('body').value;
+      if (!title) return toast('Add a title first.', true);
+      if (!slug) return toast('Add a URL slug.', true);
+      if (!body.trim()) return toast('The article body is empty.', true);
+      if (slug !== editing && posts.some(p => p.slug === slug)) return toast('Another article already uses that slug.', true);
+
+      const words = (body.match(/\S+/g) || []).length;
+      const entry = {
+        slug, title,
+        date: $('date').value || today(),
+        readTime: Math.max(1, Math.round(words / 220)) + ' min read',
+        excerpt: $('excerpt').value.trim(),
+        tags: $('tags').value.split(',').map(t => t.trim()).filter(Boolean)
+      };
+      if ($('cover').value.trim()) entry.cover = $('cover').value.trim();
+      if ($('draft').checked) entry.draft = true;
+
+      $('saveBtn').disabled = true;
+      try {
+        toast('Saving…');
+        const verb = editing ? 'Update' : 'Add';
+        // 1. article body
+        const mdPath = 'blog/posts/' + slug + '.md';
+        let sha = (editing === slug) ? bodySha : null;
+        if (!sha) { const existing = await gh(mdPath); if (existing) sha = existing.sha; }
+        const r = await putFile(mdPath, b64encode(body.endsWith('\n') ? body : body + '\n'), `${verb} article: ${title}`, sha);
+        bodySha = r.content.sha;
+        // 2. renamed? remove the old file
+        if (editing && editing !== slug) {
+          const old = await gh('blog/posts/' + editing + '.md');
+          if (old) await delFile('blog/posts/' + editing + '.md', 'Rename article: ' + editing + ' → ' + slug, old.sha);
+        }
+        // 3. index
+        await loadPosts();
+        const next = posts.filter(p => p.slug !== (editing || slug) && p.slug !== slug);
+        next.push(entry);
+        next.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const res = await putFile(POSTS_PATH, b64encode(JSON.stringify(next, null, 2) + '\n'), `${verb} article in index: ${title}`, postsSha);
+        posts = next; postsSha = res.content.sha;
+        await rebuildBundle(next, { [slug]: body.endsWith('\n') ? body : body + '\n' });
+        editing = slug; dirty = false;
+        $('editHeading').textContent = 'Edit article'; $('deleteBtn').classList.remove('hidden');
+        toast(entry.draft ? 'Draft saved.' : 'Published. The site updates in about a minute.');
+      } catch (err) { toast(err.message, true); }
+      $('saveBtn').disabled = false;
+    };
+
+    window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+    /* ---------- boot ---------- */
+    marked.setOptions({ gfm: true });
+    const saved = store.load();
+    if (saved && saved.token) {
+      cfg = saved;
+      loadPosts().then(() => { renderWho(); renderList(); show('listView'); })
+        .catch(err => { cfg = null; store.clear(); toast(err.message, true); show('connectView'); });
+    } else show('connectView');
+  })();
+  </script>
+</body>
+</html>

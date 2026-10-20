@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Two client apps connected to one API, with six circles representing the team">
+<defs>
+ <pattern id="d" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#ddcdae"/></pattern>
+ <radialGradient id="g" cx="80%" cy="15%" r="70%"><stop offset="0" stop-color="#ece2cf"/><stop offset="1" stop-color="#f5efe3"/></radialGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#g)"/>
+<rect width="1200" height="675" fill="url(#d)" opacity=".55"/>
+<text x="90" y="100" font-family="'JetBrains Mono', Menlo, monospace" font-size="20" fill="#8f7547" letter-spacing="3">REGGY · TEAM OF SIX</text>
+<rect x="250" y="190" width="260" height="110" rx="18" fill="#ffffff" stroke="#ddcdae"/><text x="380" y="255" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#23201b">Flutter app</text>
+<rect x="690" y="190" width="260" height="110" rx="18" fill="#ffffff" stroke="#ddcdae"/><text x="820" y="255" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#23201b">MVC portal</text>
+<path d="M380 300 V360 H600 M820 300 V360 H600 V400" fill="none" stroke="#8f7547" stroke-width="3" stroke-dasharray="8 7"/>
+<rect x="420" y="400" width="360" height="120" rx="20" fill="#23201b"/><text x="600" y="470" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="32" fill="#ece2cf">ASP.NET Core API</text><circle cx="460" cy="590" r="18" fill="#ddcdae"/><circle cx="516" cy="590" r="18" fill="#c2a878"/><circle cx="572" cy="590" r="18" fill="#8f7547"/><circle cx="628" cy="590" r="18" fill="#ddcdae"/><circle cx="684" cy="590" r="18" fill="#c2a878"/><circle cx="740" cy="590" r="18" fill="#8f7547"/>
+</svg>

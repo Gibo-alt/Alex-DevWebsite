@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "ai-in-tech-companies",
+    "title": "How AI is actually being used inside tech companies",
+    "date": "2026-10-19",
+    "readTime": "7 min read",
+    "excerpt": "From AI-generated code at Google to support bots and security, plus the trust gap nobody talks about and what it means for junior developers.",
+    "tags": ["AI", "Industry", "Careers"],
+    "cover": "images/ai-tech-companies-cover.svg"
+  },
+  {
+    "slug": "software-vs-electronic-engineering",
+    "title": "Software vs electronic engineering: the gap in a fast-moving tech world",
+    "date": "2026-10-17",
+    "readTime": "7 min read",
+    "excerpt": "Why change is cheap in code and expensive in silicon, where the two disciplines now overlap, and what software developers can learn from hardware.",
+    "tags": ["Engineering", "Embedded", "Industry"],
+    "cover": "images/software-vs-electronic-cover.svg"
+  },
+  {
+    "slug": "software-in-the-21st-century",
+    "title": "Software in the 21st century: from CDs to AI pair programmers",
+    "date": "2026-10-15",
+    "readTime": "6 min read",
+    "excerpt": "The web, Git, mobile, cloud, data and AI: the shifts that reshaped how software is built, and the fundamentals that never changed.",
+    "tags": ["History", "Industry", "Cloud"],
+    "cover": "images/software-21st-century-cover.svg"
+  },
+  {
+    "slug": "leading-reggy-wil-team",
+    "title": "What leading a six-person team on REGGY taught me",
+    "date": "2026-10-12",
+    "readTime": "5 min read",
+    "excerpt": "Owning the shared API while coordinating web, mobile and database workstreams: lessons on contracts, branches and talking to clients.",
+    "tags": ["Leadership", ".NET", "Teamwork"],
+    "cover": "images/leading-reggy-cover.svg"
+  },
+  {
+    "slug": "hardening-an-express-api",
+    "title": "Hardening an Express API: the layers I used in HustleHub+",
+    "date": "2026-09-21",
+    "readTime": "6 min read",
+    "excerpt": "JWT, bcrypt, role checks, Helmet, rate limiting and NoSQL-injection protection, and why each one is there.",
+    "tags": ["Security", "Node.js", "APIs"],
+    "cover": "images/hardening-express-cover.svg"
+  },
+  {
+    "slug": "ci-for-android-with-github-actions",
+    "title": "A simple GitHub Actions build check for an Android app",
+    "date": "2026-08-30",
+    "readTime": "4 min read",
+    "excerpt": "How I set up a workflow for Impilo that installs Java 17, uses the Gradle wrapper and proves every push still compiles.",
+    "tags": ["Android", "Kotlin", "DevOps"],
+    "cover": "images/android-ci-cover.svg"
+  }
+]

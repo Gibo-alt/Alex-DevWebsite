@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Concentric rings labelled rate limit, Helmet, JWT, roles and bcrypt protecting data">
+<defs>
+ <pattern id="d" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#ddcdae"/></pattern>
+ <radialGradient id="g" cx="80%" cy="15%" r="70%"><stop offset="0" stop-color="#ece2cf"/><stop offset="1" stop-color="#f5efe3"/></radialGradient>
+</defs>
+<rect width="1200" height="675" fill="url(#g)"/>
+<rect width="1200" height="675" fill="url(#d)" opacity=".55"/>
+<text x="90" y="100" font-family="'JetBrains Mono', Menlo, monospace" font-size="20" fill="#8f7547" letter-spacing="3">DEFENCE IN DEPTH</text><circle cx="600" cy="380" r="270" fill="#ece2cf" stroke="#ffffff" stroke-width="3"/><text x="600" y="144" text-anchor="middle" font-family="'JetBrains Mono', Menlo, monospace" font-size="19" fill="#23201b">Rate limit</text><circle cx="600" cy="380" r="222" fill="#ddcdae" stroke="#ffffff" stroke-width="3"/><text x="600" y="192" text-anchor="middle" font-family="'JetBrains Mono', Menlo, monospace" font-size="19" fill="#23201b">Helmet</text><circle cx="600" cy="380" r="174" fill="#c2a878" stroke="#ffffff" stroke-width="3"/><text x="600" y="240" text-anchor="middle" font-family="'JetBrains Mono', Menlo, monospace" font-size="19" fill="#23201b">JWT</text><circle cx="600" cy="380" r="126" fill="#8f7547" stroke="#ffffff" stroke-width="3"/><text x="600" y="288" text-anchor="middle" font-family="'JetBrains Mono', Menlo, monospace" font-size="19" fill="#ffffff">Roles</text><circle cx="600" cy="380" r="78" fill="#23201b" stroke="#ffffff" stroke-width="3"/><text x="600" y="336" text-anchor="middle" font-family="'JetBrains Mono', Menlo, monospace" font-size="19" fill="#ffffff">bcrypt</text><text x="600" y="400" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#ece2cf">data</text>
+</svg>
