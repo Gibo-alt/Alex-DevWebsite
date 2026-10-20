@@ -12,6 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#fbf8f2">
+  <script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);if(t==='dark')document.querySelector('meta[name=theme-color]').content='#12100d'}catch(e){}</script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -71,6 +73,17 @@
             <span><svg><use href="#i-pin"/></svg> Gqeberha, Eastern Cape, South Africa</span>
             <span><svg><use href="#i-grad"/></svg> BCIS Application Development · 2026</span>
           </div>
+          <div class="code-window reveal" aria-label="Developer profile as code">
+            <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span>gerard.ts</span></div>
+<pre><code><span class="tk-k">const</span> <span class="tk-p">gerard</span> = {
+  <span class="tk-p">role</span>:      <span class="tk-s">"Software Developer"</span>,
+  <span class="tk-p">stack</span>:     [<span class="tk-s">"C#"</span>, <span class="tk-s">"ASP.NET Core"</span>, <span class="tk-s">"React"</span>, <span class="tk-s">"Kotlin"</span>],
+  <span class="tk-p">leading</span>:   <span class="tk-s">"REGGY (6-dev team)"</span>,
+  <span class="tk-p">location</span>:  <span class="tk-s">"Gqeberha, ZA"</span>,
+  <span class="tk-p">openToWork</span>: <span class="tk-b">true</span>,<span class="caret"></span>
+};</code></pre>
+          </div>
+          <p class="hint-row">Tip: press <kbd data-mod>Ctrl</kbd><kbd>K</kbd> for the command palette, or try the <a href="#terminal">terminal</a>.</p>
         </div>
         <div class="hero-card">
           <img src="Media/profile.jpg" alt="Portrait of Gerard Alexander Gibson" width="900" height="1200">
@@ -306,6 +319,33 @@
       </div>
     </section>
 
+    <!-- ============ TERMINAL ============ -->
+    <section class="section section--sand" id="terminal">
+      <div class="container term-grid">
+        <div class="reveal">
+          <p class="eyebrow">Interactive</p>
+          <h2 class="section-title">Skip the scroll. Use the terminal.</h2>
+          <p>Prefer a keyboard? Ask it about my projects, skills or experience, pull my latest repos live from the GitHub API, or just say hello. It reads from this very page.</p>
+          <div class="term-chips">
+            <span>Try:</span>
+            <button type="button" data-cmd="help">help</button>
+            <button type="button" data-cmd="projects">projects</button>
+            <button type="button" data-cmd="skills">skills</button>
+            <button type="button" data-cmd="github">github</button>
+            <button type="button" data-cmd="contact">contact</button>
+          </div>
+        </div>
+        <div class="term reveal" id="term">
+          <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">guest@gerard: ~</span></div>
+          <div class="term-body" aria-live="polite"></div>
+          <div class="term-input-row">
+            <label for="termInput"><span class="term-prompt">guest<span class="at">@</span>gerard<span class="at">:</span><span class="path">~</span>$</span></label>
+            <input class="term-input" id="termInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command">
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ BLOG PREVIEW ============ -->
     <section class="section section--white" id="blog">
       <div class="container">
@@ -353,5 +393,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="dev.js"></script>
 </body>
 </html>

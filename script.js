@@ -70,7 +70,7 @@
     Java: '#b07219', HTML: '#e34c26', CSS: '#663399', Python: '#3572a5', 'C++': '#f34b7d'
   };
   // Repos to hide from the live list (this website itself, etc.)
-  const HIDE_REPOS = ['alex_website', 'gibo-alt'];
+  const HIDE_REPOS = ['alex_website', 'alex-devwebsite', 'gibo-alt'];
 
   const repoGrid = document.getElementById('repoGrid');
   if (repoGrid) {

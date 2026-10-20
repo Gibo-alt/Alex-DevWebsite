@@ -6,6 +6,7 @@ Personal portfolio and blog. Plain HTML, CSS and JavaScript, hosted on GitHub Pa
 index.html            Home: hero, about, experience, projects, live GitHub repos, skills, latest posts, contact
 styles.css            All styling (white + sand palette, colour tokens at the top)
 script.js             Nav, scroll animations, GitHub repo feed, blog loading
+dev.js                Dark mode, Cmd/Ctrl+K command palette, interactive terminal, article code tools
 Media/                Images (profile.jpg is the web-sized photo used on the site)
 blog/index.html       Blog listing with tag filters and search
 blog/post.html        Article page (renders Markdown)
@@ -70,3 +71,10 @@ You can double-click `index.html` to open the site straight from your computer; 
 then reads from `blog/posts-data.js`, a bundled copy of all articles.
 The admin page rebuilds that file on every save. If you edit `posts.json` or the `.md`
 files by hand, run `python3 build-blog-data.py` afterwards to refresh it.
+
+## Developer features
+
+- **Command palette**: press `Ctrl/⌘ + K` (or `/`) on any page to jump to sections, articles, or run actions.
+- **Terminal**: the `#terminal` section on the home page is interactive (`help`, `projects`, `skills`, `github`, `contact`, plus a few easter eggs). It reads its content from the page itself, so it stays in sync.
+- **Dark mode**: follows the OS setting until the visitor picks a theme; stored in `localStorage`.
+- **Articles**: syntax-highlighted code blocks with copy buttons, heading anchors and a copy-link button.
