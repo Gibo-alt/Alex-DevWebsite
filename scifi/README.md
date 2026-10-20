@@ -15,7 +15,8 @@ build-logs.py         Regenerates the Mission Logs cards from ../blog/posts.json
 assets/               Pilot photo (WebP sizes + JPG fallback)
 css/styles.css        Tokens (white/khaki/blue), glass panels, HUD brackets, buttons, reticle
 js/main.js            Entry point: boot -> crawl -> hyperspace -> text effects
-js/scene.js           Three.js alien desert: dune terrain, buttes, rocks, crashed ship, monoliths, twin suns, ringed gas giant, dust, jump streaks, camera path
+js/scene.js           Three.js holographic data core, floating code glyphs, gates, grid floor, dust, jump streaks, camera path
+js/codeRain.js        Faded khaki code rain behind the 3D scene (2D canvas)
 js/textScramble.js    TextScramble class: heading decode effect (Orbitron)
 js/typewriter.js      Typewriter queue + blinking █ cursor (JetBrains Mono)
 js/boot.js            Boot screen (waits for fonts + 3D scene)
@@ -29,7 +30,7 @@ js/config.js          Shared constants, helpers, intro-skip flag
 
 ## Notes
 - Libraries load from CDNs at pinned versions: three.js 0.160.0, GSAP + ScrollTrigger 3.12.5, Lenis 1.1.13.
-- The background is a real 3D alien desert (procedural dunes with a sand normal map, long low-sun shadows on desktop, haze). Sky bodies follow the camera so they stay at infinity. A soft off-white CSS veil (`.fx-veil`) keeps text readable over the bright sand.
+- Background (chosen for a developer portfolio): faded code rain + a khaki/blue holographic wireframe core with orbiting code glyphs. It reads as "software" at a glance, stays light, and keeps text readable. The previous alien-desert scene is in git history (commit 1ab65b4).
 - Any key or click skips the boot screen and the crawl together.
 - `prefers-reduced-motion`: no boot or crawl, all text appears instantly, the camera stays still.
 - The scene lowers its own quality (pixel ratio, then shadows, then dust) if frames get slow, pauses when the tab is hidden, and caps the pixel ratio at 2 (1.25 on phones).

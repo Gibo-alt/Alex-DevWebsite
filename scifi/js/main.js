@@ -13,6 +13,7 @@ import { runCrawl } from './crawl.js';
 import { initCounters } from './counters.js';
 import { initMotion, initJumpTriggers, initTilt, initMagnetic, initIdCard } from './animations.js';
 import { initCursor } from './cursor.js';
+import { initCodeRain } from './codeRain.js';
 import { initNav, initHud } from './ui.js';
 
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
@@ -40,6 +41,8 @@ async function main() {
   try { scene = createScene(document.getElementById('scene'), { mobile: MOBILE || LITE, reduced: REDUCED }); }
   catch (err) { console.warn('3D scene disabled:', err); }
   if (!scene) html.classList.add('no-webgl');
+
+  initCodeRain();                                 // faded code rain behind the 3D scene
 
   /* 3. Smooth scroll + reveals; scroll progress drives the camera */
   const hudScroll = initHud();
