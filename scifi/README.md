@@ -15,7 +15,7 @@ build-logs.py         Regenerates the Mission Logs cards from ../blog/posts.json
 assets/               Pilot photo (WebP sizes + JPG fallback)
 css/styles.css        Tokens (white/khaki/blue), glass panels, HUD brackets, buttons, reticle
 js/main.js            Entry point: boot -> crawl -> hyperspace -> text effects
-js/scene.js           Three.js: desert planet + twin suns, starfield, dust, hyperspace streaks, grid floor, camera path
+js/scene.js           Three.js alien desert: dune terrain, buttes, rocks, crashed ship, monoliths, twin suns, ringed gas giant, dust, jump streaks, camera path
 js/textScramble.js    TextScramble class: heading decode effect (Orbitron)
 js/typewriter.js      Typewriter queue + blinking █ cursor (JetBrains Mono)
 js/boot.js            Boot screen (waits for fonts + 3D scene)
@@ -29,9 +29,9 @@ js/config.js          Shared constants, helpers, intro-skip flag
 
 ## Notes
 - Libraries load from CDNs at pinned versions: three.js 0.160.0, GSAP + ScrollTrigger 3.12.5, Lenis 1.1.13.
-- The canvas is transparent: the white background, faint khaki grid and sand grain are CSS.
+- The background is a real 3D alien desert (procedural dunes with a sand normal map, long low-sun shadows on desktop, haze). Sky bodies follow the camera so they stay at infinity. A soft off-white CSS veil (`.fx-veil`) keeps text readable over the bright sand.
 - Any key or click skips the boot screen and the crawl together.
 - `prefers-reduced-motion`: no boot or crawl, all text appears instantly, the camera stays still.
-- The scene lowers its own quality (pixel ratio, particle count, atmosphere) if frames get slow, pauses when the tab is hidden, and caps the pixel ratio at 2 (1.25 on phones).
+- The scene lowers its own quality (pixel ratio, then shadows, then dust) if frames get slow, pauses when the tab is hidden, and caps the pixel ratio at 2 (1.25 on phones).
 - Mission Logs are real HTML generated from `../blog/posts.json`. After adding a post, run `python3 scifi/build-logs.py`.
 - Colour contrast: pure khaki (#c3a46b) is decoration only. Small text uses #7a6338 (5.5:1), secondary text #5a5650 (7:1), blue text #1a6fd6 (4.7:1) on #fbfaf7.
