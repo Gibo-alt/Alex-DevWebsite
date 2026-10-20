@@ -1,84 +1,50 @@
-# Gerard Gibson — Portfolio
+# ALEX — developer portfolio (white + khaki space-opera interface)
 
-Personal portfolio and blog. Plain HTML, CSS and JavaScript, hosted on GitHub Pages.
+Plain HTML, CSS and ES-module JavaScript with Three.js, GSAP and Lenis from CDNs (pinned versions). Hosted on GitHub Pages. Original design: no logos, fonts, characters, names or sounds from any film.
+
+Run it through a local server (ES modules do not run from `file://`):
+
+    python3 -m http.server 8080   # then visit http://localhost:8080/
+
+URL options: `?lite` forces the light 3D scene (phones get it automatically); `?intro` replays the boot + crawl (otherwise they play once per browser session).
 
 ```
-index.html            Home: hero, about, experience, projects, live GitHub repos, skills, latest posts, contact
-styles.css            All styling (white + sand palette, colour tokens at the top)
-script.js             Nav, scroll animations, GitHub repo feed, blog loading
-dev.js                Dark mode, Cmd/Ctrl+K command palette, interactive terminal, article code tools
-Media/                Images (profile.jpg is the web-sized photo used on the site)
-blog/index.html       Blog listing with tag filters and search
-blog/post.html        Article page (renders Markdown)
-blog/posts.json       List of articles (title, date, tags, excerpt)
-blog/posts/*.md       The articles themselves, in Markdown
-blog/images/          Cover images and figures for articles
-blog/posts-data.js    Generated copy of all articles (lets the blog work when opened from disk)
-blog/admin.html       Editor to create, edit and delete articles
+index.html            Home page: all real text lives in the HTML (SEO)
+log.html              Mission Log reader: renders one article (?slug=...) in the same interface
+build-logs.py         Regenerates the Mission Logs cards in index.html from blog/posts.json
+css/styles.css        Tokens (white/khaki/blue), glass panels, HUD brackets, buttons, reticle, article prose
+js/main.js            Home entry point: boot -> crawl -> hyperspace -> text effects
+js/log.js             Article page: markdown -> sanitised HTML, code highlight + copy buttons, pager
+js/logs.js            Keeps the home cards in sync with blog/posts.json
+js/scene.js           Three.js holographic data core, floating code glyphs, gates, grid floor, jump streaks
+js/codeRain.js        Faded khaki code rain behind the 3D scene
+js/textScramble.js    Heading "decode" effect (Orbitron)
+js/typewriter.js      Typewriter queue + blinking █ cursor (JetBrains Mono)
+js/boot.js, crawl.js  Boot screen and opening crawl
+js/cursor.js          Khaki targeting reticle (hidden on touch)
+js/animations.js      Lenis + ScrollTrigger reveals, jump triggers, card tilt, magnetic buttons, ID-card scan
+js/counters.js, ui.js Count-up stats; mobile nav + HUD
+assets/               Pilot photo (WebP sizes + JPG fallback)
+blog/posts.json       Article index (title, date, tags, excerpt, cover)
+blog/posts/*.md       The articles, in Markdown
+blog/images/          Cover images and figures
+blog/admin.html       Editor to create, edit and delete articles (commits to GitHub)
+build-blog-data.py    Rebuilds blog/posts-data.js (bundle used by the editor)
+Media/                Original photos
 ```
 
-## Managing articles (create, edit, delete)
+## Mission Logs (articles)
+- Articles are Markdown in `blog/posts/`, listed in `blog/posts.json`. The home page shows them as LOG.001, LOG.002... cards; each opens in `log.html?slug=<slug>`.
+- To add or edit a post, use `blog/admin.html` (see below). The home page re-reads `blog/posts.json` on load, so new posts appear without a rebuild. Run `python3 build-logs.py` to refresh the static cards in `index.html` (the version search engines see).
 
-Open **/blog/admin.html** on your live site (there's also a small "Manage" link in the blog footer).
+## Blog editor (`/blog/admin.html`)
+1. Create a GitHub fine-grained personal access token: Settings → Developer settings → Fine-grained tokens. Repository access: only this repo. Permissions: **Contents: Read and write**.
+2. Open `/blog/admin.html`, paste the token and click Connect.
+3. Create, edit, save as draft / publish or delete articles; images upload to `blog/images/`. Each save is a commit.
 
-1. Create a GitHub **fine-grained personal access token**: GitHub → Settings → Developer settings →
-   Personal access tokens → Fine-grained tokens → Generate new token.
-   - Repository access: **Only select repositories** → `Alex_Website`
-   - Permissions → Repository → **Contents: Read and write**
-2. Paste the token into the admin page and click **Connect**.
-3. From there you can:
-   - **Create** a new article with a live Markdown preview and formatting toolbar
-   - **Upload images** (cover image or inline in the article); they're saved to `blog/images/`
-   - **Edit** any article, including renaming its URL slug
-   - Save as **draft** (hidden from the public blog) or **publish**
-   - **Delete** an article (removes the .md file and its index entry)
-
-Every save is a commit to your repo. GitHub Pages rebuilds in about a minute.
-The token stays in your browser only, and is sent nowhere except api.github.com.
-Only tick "Remember on this device" on your own computer.
-
-## Adding a blog post by hand
-
-1. Create a Markdown file in `blog/posts/`, e.g. `blog/posts/my-new-post.md`.
-   Write the article body in Markdown (no title needed; it comes from posts.json).
-2. Add an entry to the **top** of `blog/posts.json`:
-
-   ```json
-   {
-     "slug": "my-new-post",
-     "title": "My new post",
-     "date": "2026-11-02",
-     "readTime": "4 min read",
-     "excerpt": "One or two sentences shown on the card.",
-     "tags": ["APIs", ".NET"],
-     "cover": "images/my-cover.jpg"
-   }
-   ```
-
-   - `slug` must match the file name (without `.md`).
-   - `cover` is optional (path relative to `blog/`).
-   - Add `"draft": true` to hide a post until it's ready.
-3. Commit and push. The post appears on the blog page and, if it's one of the three newest, on the home page.
-
-## GitHub projects
-
-The "Latest repositories" section loads your public repos live from the GitHub API,
-newest first, skipping forks. To hide a repo, add its name to `HIDE_REPOS` in `script.js`.
-
-## Previewing locally
-
-You can double-click `index.html` to open the site straight from your computer; the blog
-then reads from `blog/posts-data.js`, a bundled copy of all articles.
-The admin page rebuilds that file on every save. If you edit `posts.json` or the `.md`
-files by hand, run `python3 build-blog-data.py` afterwards to refresh it.
-
-## Developer features
-
-- **Command palette**: press `Ctrl/⌘ + K` (or `/`) on any page to jump to sections, articles, or run actions.
-- **Terminal**: the `#terminal` section on the home page is interactive (`help`, `projects`, `skills`, `github`, `contact`, plus a few easter eggs). It reads its content from the page itself, so it stays in sync.
-- **Dark mode**: follows the OS setting until the visitor picks a theme; stored in `localStorage`.
-- **Articles**: syntax-highlighted code blocks with copy buttons, heading anchors and a copy-link button.
-
-## 3D space-opera version
-
-An alternative, 3D version of the site lives in `scifi/` (see `scifi/README.md`). The classic site above is unchanged.
+## Notes
+- Any key or click skips the boot screen and the crawl together.
+- `prefers-reduced-motion`: no boot or crawl, all text appears instantly, the camera stays still.
+- The 3D scene lowers its own quality if frames get slow, pauses when the tab is hidden, and caps the pixel ratio at 2 (1.25 on phones).
+- Colour contrast: pure khaki (#c3a46b) is decoration only. Small text uses #6b5630, secondary text #5a5650, blue text #1a6fd6 on #fbfaf7.
+- Earlier scene variants (dark hologram, planet, alien desert) are in git history.

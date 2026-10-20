@@ -310,3 +310,49 @@ html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
   .btn::after { transition: none; }
   .btn:hover > span, .glitch:hover { animation: none; }
 }
+
+/* ---------- Mission Log reader (log.html) ---------- */
+.log-main { padding: calc(var(--nav-h) + 48px) 0 96px; min-height: 100svh; }
+.log-article { width: min(820px, 100% - clamp(32px, 8vw, 96px)); }
+.log-loading { color: var(--ink-2); }
+.log-head { margin: 22px 0 28px; }
+h1.log-title { font-size: clamp(24px, 4.4vw, 46px); letter-spacing: .08em; line-height: 1.2; margin: 6px 0 18px; }
+.back { display: inline-block; font: 700 11.5px var(--font-head); letter-spacing: .2em; color: var(--blue-text); }
+.back:hover { color: var(--ink); }
+.log-cover { margin: 0 0 24px; border: 1px solid var(--khaki-d); background: var(--glass); padding: 8px;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)); }
+.log-cover img { width: 100%; height: auto; display: block; }
+.log-body { padding: clamp(22px, 4vw, 44px); background-color: rgba(255, 255, 255, .84); }
+.log-pager { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+
+.prose { font-size: 15.5px; line-height: 1.9; color: var(--ink); overflow-wrap: anywhere; }
+.prose h2 { font: 700 clamp(17px, 2.4vw, 22px)/1.35 var(--font-head); letter-spacing: .1em; text-transform: uppercase; margin: 2.2em 0 .6em; color: var(--ink); }
+.prose h2::before { content: "> "; color: var(--khaki-d); }
+.prose h3 { font: 700 15px/1.4 var(--font-head); letter-spacing: .1em; text-transform: uppercase; margin: 1.8em 0 .5em; }
+.prose p { margin: 0 0 1.2em; color: var(--ink); }
+.prose a { color: var(--blue-text); text-underline-offset: 3px; }
+.prose a:hover { color: var(--ink); }
+.prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 1.2em; }
+.prose ul { list-style: none; padding-left: 1.2em; }
+.prose ul li { position: relative; }
+.prose ul li::before { content: "▸"; position: absolute; left: -1.2em; color: var(--khaki-d); }
+.prose li { margin-bottom: .45em; }
+.prose blockquote { margin: 1.6em 0; padding: .4em 0 .4em 1.3em; border-left: 3px solid var(--khaki); color: var(--ink-2); font-style: italic; }
+.prose hr { border: 0; border-top: 1px dashed var(--line); margin: 2.2em 0; }
+.prose img { max-width: 100%; height: auto; display: block; margin: 1.6em auto; border: 1px solid var(--line); background: #fff; }
+.prose code { font: 500 .88em var(--font-mono); background: rgba(195, 164, 107, .18); border: 1px solid rgba(138, 115, 70, .3); padding: 1px 6px; color: #5a4524; }
+.prose pre { position: relative; margin: 0 0 1.4em; padding: 18px 20px; background: #1a1a1f; color: #ece3cf; overflow-x: auto; font-size: 13.5px; line-height: 1.7;
+  border-left: 3px solid var(--khaki); }
+.prose pre code { background: none; border: 0; padding: 0; color: inherit; font-size: inherit; }
+.prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.4em; font-size: 14px; display: block; overflow-x: auto; }
+.prose th, .prose td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.prose th { font: 700 11.5px var(--font-head); letter-spacing: .1em; text-transform: uppercase; color: var(--khaki-text); }
+.copy-code { position: absolute; top: 8px; right: 8px; font: 700 10.5px var(--font-head); letter-spacing: .16em; padding: 5px 10px; cursor: pointer;
+  background: rgba(255, 255, 255, .08); color: #d9cfb8; border: 1px solid rgba(255, 255, 255, .22); opacity: 0; transition: opacity .2s; }
+.prose pre:hover .copy-code, .copy-code:focus-visible { opacity: 1; }
+.prose .hljs-keyword, .prose .hljs-built_in, .prose .hljs-literal { color: #f0a070; }
+.prose .hljs-string, .prose .hljs-regexp { color: #a5d6a7; }
+.prose .hljs-number, .prose .hljs-attr { color: #e8c98a; }
+.prose .hljs-title, .prose .hljs-function, .prose .hljs-class { color: #8fb4ff; }
+.prose .hljs-comment { color: #9a917c; font-style: italic; }
+@media (max-width: 620px) { .log-article { width: calc(100% - 32px); } .log-pager .btn { flex: 1 1 100%; } }

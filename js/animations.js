@@ -40,6 +40,7 @@ export function initMotion({ onScroll }) {
   }
 
   // Fade in with a slight 3D rotation (transform + opacity only), staggered per batch
+  if (!revealEls.length) return { lock() { lenis && lenis.stop(); }, unlock() { lenis && lenis.start(); }, refresh() { ST.refresh(); }, ST };
   gsap.set(revealEls, { autoAlpha: 0, y: 70, rotationX: -14, transformPerspective: 900, transformOrigin: '50% 100%' });
   ST.batch(revealEls, {
     start: 'top 90%', once: true,

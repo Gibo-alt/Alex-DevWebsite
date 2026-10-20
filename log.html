@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mission Log | ALEX</title>
+  <meta name="description" content="A mission log (article) by ALEX, software developer.">
+  <meta name="theme-color" content="#fbfaf7">
+  <meta property="og:title" content="Mission Log | ALEX">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="assets/alex-900.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23fbfaf7' stroke='%23c3a46b' stroke-width='4'/%3E%3Ctext x='50%25' y='60%25' text-anchor='middle' dominant-baseline='middle' font-family='monospace' font-weight='700' font-size='34' fill='%231a1a1f'%3EA_%3C/text%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+  </script>
+</head>
+<body class="log-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="fx fx-grid" aria-hidden="true"></div>
+  <canvas id="codeRain" class="fx fx-code" aria-hidden="true"></canvas>
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="fx fx-veil" aria-hidden="true"></div>
+  <div class="fx fx-grain" aria-hidden="true"></div>
+  <div class="fx fx-warp" aria-hidden="true"></div>
+  <div class="reticle" id="reticle" aria-hidden="true"><i class="ring"></i><i class="t1"></i><i class="t2"></i><i class="t3"></i><i class="t4"></i><i class="dot"></i></div>
+
+  <header class="nav" id="nav">
+    <a href="./" class="brand" aria-label="ALEX, pilot online. Back to the home page">
+      <span class="brand-name">ALEX<span class="brand-cursor" aria-hidden="true">_</span></span>
+      <span class="brand-sub">PILOT // ONLINE</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu"><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="./#about" class="glitch">About</a>
+      <a href="./#systems" class="glitch">Systems</a>
+      <a href="./#projects" class="glitch">Projects</a>
+      <a href="./#logs" class="glitch active">Mission Logs</a>
+      <a href="./#stats" class="glitch">Stats</a>
+      <a href="./#contact" class="glitch">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="log-main">
+    <article class="wrap log-article" id="article" aria-live="polite">
+      <p class="sys">SYS.05 // MISSION LOG</p>
+      <p class="log-loading">Decrypting log...</p>
+      <noscript><p>This mission log needs JavaScript to load. <a href="./#logs">Back to all Mission Logs</a>.</p></noscript>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot">
+      <p class="sys">SYS.99 // END OF TRANSMISSION</p>
+      <p>© <span id="year">2026</span> ALEX · Gqeberha, South Africa · v2.6</p>
+      <p class="foot-links">
+        <a class="glitch" href="./">Home</a>
+        <a class="glitch" href="./#logs">Mission Logs</a>
+        <a class="glitch" href="https://github.com/Gibo-alt" target="_blank" rel="noopener">GitHub</a>
+        <a class="glitch" href="https://www.linkedin.com/in/gerardalexander-gibson-347953288" target="_blank" rel="noopener">LinkedIn</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script type="module" src="js/log.js"></script>
+</body>
+</html>

@@ -14,6 +14,7 @@ import { initCounters } from './counters.js';
 import { initMotion, initJumpTriggers, initTilt, initMagnetic, initIdCard } from './animations.js';
 import { initCursor } from './cursor.js';
 import { initCodeRain } from './codeRain.js';
+import { syncLogs } from './logs.js';
 import { initNav, initHud } from './ui.js';
 
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
@@ -30,6 +31,8 @@ async function main() {
   const showIntro = !REDUCED;
   if (REDUCED) { const c = document.getElementById('crawl'); c && c.remove(); }
   if (showIntro) html.classList.add('intro-lock');
+
+  await syncLogs();                               // pick up posts added in the blog editor
 
   /* 1. Prepare text effects (real text stays in the DOM) */
   const scrambles = $$('[data-scramble]').map(el => new TextScramble(el));
