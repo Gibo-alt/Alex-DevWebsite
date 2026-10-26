@@ -38,7 +38,7 @@ Media/                Original photos
 ## CV (always in sync with the site)
 - Edit **`data/cv.json`** (summary, skills, experience, projects, education), then run `pip install -r requirements.txt && python3 build-cv.py`.
 - That one command rebuilds `assets/Gerard_Alexander_Gibson_CV.pdf` **and** the CV and Systems sections of `index.html`, so the PDF and the website can't drift apart. The page shows a short revision id (`REV xxxxxxx`) that also appears in the PDF footer.
-- The deploy workflow (`.github/workflows/static.yml`) runs `build-cv.py` and `build-logs.py` on every push, so the published CV always matches the published data.
+- Automatic rebuild on every push: the updated `.github/workflows/static.yml` (already edited in the working copy, not yet pushed) runs `build-cv.py` and `build-logs.py` before deploying. Pushing a workflow file needs a token with the `workflow` scope, or paste the file into GitHub's web editor. Until then, run `python3 build-cv.py` yourself before committing a CV change.
 - Download buttons: hero, the CV section, contact and footer all link to the PDF.
 
 ## Mission Logs (articles)
