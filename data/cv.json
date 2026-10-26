@@ -1,0 +1,207 @@
+{
+  "_note": "Single source of truth for the CV. Edit this file, then run: python3 build-cv.py  (it rebuilds the CV PDF, the CV section and the Systems cards on the website; the deploy workflow does the same on every push).",
+  "name": "Gerard Alexander Gibson",
+  "title": "Software Developer | Full-Stack, Backend and Mobile Development",
+  "location": "Gqeberha (Port Elizabeth), Eastern Cape, South Africa",
+  "email": "gagibson959@gmail.com",
+  "linkedin": {
+    "label": "linkedin.com/in/gerardalexander-gibson-347953288",
+    "url": "https://www.linkedin.com/in/gerardalexander-gibson-347953288"
+  },
+  "portfolio": {
+    "label": "gibo-alt.github.io/Alex-DevWebsite",
+    "url": "https://gibo-alt.github.io/Alex-DevWebsite/"
+  },
+  "summary": "Final-year Application Development student with practical experience building full-stack web, Android and cross-platform applications using C# and ASP.NET Core, React with Node.js, Kotlin and Flutter. Led a six-member Work-Integrated Learning team and took primary responsibility for the REST API connecting a Flutter mobile app and an ASP.NET Core MVC staff portal. Project work covers secure REST APIs with JWT and role-based access control, SQL Server, MongoDB and Firebase data stores, Microsoft Azure services, automated testing and Git-based collaboration. Seeking a graduate or junior software engineering role.",
+  "skills": [
+    {
+      "label": "Programming Languages",
+      "site": "Languages",
+      "items": [
+        "C#",
+        "JavaScript",
+        "Kotlin",
+        "Dart",
+        "SQL",
+        "Java"
+      ]
+    },
+    {
+      "label": "Backend Development",
+      "site": "Backend",
+      "items": [
+        "ASP.NET Core Web API",
+        "ASP.NET Core MVC",
+        "Entity Framework Core",
+        "Node.js",
+        "Express.js",
+        "RESTful API design"
+      ]
+    },
+    {
+      "label": "Frontend Development",
+      "site": "Frontend",
+      "items": [
+        "React",
+        "Vite",
+        "HTML",
+        "CSS"
+      ]
+    },
+    {
+      "label": "Mobile Development",
+      "site": "Mobile",
+      "items": [
+        "Android SDK (Kotlin, XML layouts)",
+        "Flutter"
+      ]
+    },
+    {
+      "label": "Databases",
+      "site": "Databases",
+      "items": [
+        "Microsoft SQL Server",
+        "Azure SQL",
+        "MongoDB (Mongoose)",
+        "Firebase"
+      ]
+    },
+    {
+      "label": "Cloud and DevOps",
+      "site": "Cloud and DevOps",
+      "items": [
+        "Microsoft Azure",
+        "Azure SQL",
+        "Azure Storage",
+        "Docker",
+        "Docker Compose",
+        "GitHub Actions",
+        "Git",
+        "GitHub"
+      ],
+      "pdf": "Microsoft Azure (Azure SQL, Azure Storage), Docker, Docker Compose, GitHub Actions, Git, GitHub"
+    },
+    {
+      "label": "Testing",
+      "site": "Testing",
+      "items": [
+        "xUnit",
+        "Jest",
+        "Supertest",
+        "Vitest",
+        "Postman",
+        "Newman",
+        "Swagger"
+      ]
+    },
+    {
+      "label": "Security",
+      "site": "Security",
+      "items": [
+        "JWT authentication",
+        "bcrypt password hashing",
+        "Role-based access control",
+        "Helmet",
+        "Rate limiting",
+        "Input sanitisation"
+      ],
+      "pdf": "JWT authentication, bcrypt password hashing, role-based access control, Helmet, rate limiting, input sanitisation"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Software Engineering Team Lead (Work-Integrated Learning)",
+      "org": "Emeris, Nelson Mandela Bay | Client-based academic project, completed as part of the degree",
+      "dates": "February 2026 – Present",
+      "bullets": [
+        "Led a six-member team developing REGGY, a student registration platform for an institutional client, coordinating responsibilities and milestones across API, website, mobile and database workstreams.",
+        "Took primary responsibility for the shared C# and ASP.NET Core Web API (.NET 10) connecting the Flutter mobile app and the ASP.NET Core MVC staff website.",
+        "Worked on authentication, role-based authorisation, validation, testing and troubleshooting across the integrated system.",
+        "Supported the integration of independently developed web and mobile components using GitHub feature branches and integration testing.",
+        "Gathered client feedback, communicated progress and demonstrated functionality to stakeholders; the client approved the work presented."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "REGGY — Student Registration Management Platform",
+      "stack": "Team project | C#, ASP.NET Core Web API, ASP.NET Core MVC, .NET 10, Flutter, Dart, Firebase, Git, GitHub",
+      "bullets": [
+        "Multi-platform system digitising student applications, document submission and staff verification, appointment requests, student-number management, and status notifications.",
+        "Provides staff dashboards, reporting and administrative controls, with centralised validation, identity management and role-based authorisation enforced at API level."
+      ]
+    },
+    {
+      "name": "HustleHub+ — Secure Full-Stack Freelancer Marketplace",
+      "stack": "React 19, Vite, Node.js, Express.js, MongoDB, Mongoose, JWT, bcrypt, Jest, Supertest, Vitest, Postman, Newman",
+      "bullets": [
+        "Developed a marketplace connecting freelancers and clients, with a React frontend and an Express REST API structured into middleware, controllers and services over MongoDB.",
+        "Implemented JWT authentication, bcrypt password hashing and role-based access for Client, Freelancer and Admin roles, hardened with Helmet headers, rate limiting, input sanitisation and NoSQL-injection protection.",
+        "Built gig management with filtering and pagination, booking workflows, simulated payment records and freelancer income summaries; tested with Jest and Supertest, Vitest, and Postman/Newman."
+      ]
+    },
+    {
+      "name": "TechMove — ASP.NET Core Service Management Platform",
+      "stack": "C#, ASP.NET Core MVC, ASP.NET Core Web API, Entity Framework Core, SQL Server, Docker Compose, xUnit, GitHub Actions, Swagger",
+      "bullets": [
+        "Developed a database-driven application for managing clients, contracts (with PDF uploads) and service requests, using Entity Framework Core migrations on SQL Server.",
+        "Implemented business rules that block service requests against expired contracts, and a separate Web API that converts USD to ZAR using an external exchange-rate API.",
+        "Wrote xUnit tests for business rules, validation and conversion logic; used Docker Compose to run local services and configured GitHub Actions CI."
+      ]
+    },
+    {
+      "name": "Impilo — Android Mental Wellness Application",
+      "stack": "Kotlin, Android SDK, XML, Gradle, GitHub Actions, Android Studio",
+      "bullets": [
+        "Developing a native Android app in Kotlin with XML layouts, providing home, task, goal, profile and AI-chat screens, with UI separated from application logic.",
+        "Built task and goal management; mood check-ins, journaling and breathing exercises are in active development.",
+        "Configured a GitHub Actions workflow that sets up Java 17 and the Gradle wrapper and runs the Android debug build to verify compilation."
+      ]
+    },
+    {
+      "name": "Savora — Android Budget Management Application",
+      "stack": "Kotlin, Android SDK, XML, Firebase, Gradle, Android Studio",
+      "bullets": [
+        "Developed a native Android budgeting app with Firebase user authentication for recording and categorising expenses, creating budgets and tracking savings goals.",
+        "Built dashboards summarising income and expenses, extending features across iterative development cycles."
+      ]
+    },
+    {
+      "name": "Claimy — Lecturer Claims Management System",
+      "stack": "C#, ASP.NET MVC, Entity Framework, Azure SQL, JSON, HTML, CSS",
+      "bullets": [
+        "Developed a claims workflow for lecturers to submit claims with supporting documents, with totals calculated automatically from hours worked and hourly rate.",
+        "Implemented role-based review and approval for Lecturer, Coordinator, Manager and Human Resources users, with claim status tracking.",
+        "Stored account and authentication data in Azure SQL and selected operational records as JSON."
+      ]
+    },
+    {
+      "name": "TechNog — Azure-Based E-Commerce Management System",
+      "stack": "C#, ASP.NET MVC, Azure Storage (Blob, Table, Queue, File), HTML, CSS",
+      "bullets": [
+        "Developed product, customer and order management with administrative dashboards and initial customer-facing pages.",
+        "Built the solution around Azure Storage services in response to a business case for moving away from unreliable on-premises infrastructure."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "IIE Bachelor of Computer and Information Sciences in Application Development",
+      "org": "Emeris (formerly IIE Varsity College)",
+      "status": "Final year, in progress",
+      "dates": "February 2024 – November 2026 (Expected)"
+    },
+    {
+      "title": "Higher Certificate in Communication Practices",
+      "org": "IIE Varsity College",
+      "status": "Completed",
+      "dates": "February 2023 – November 2023"
+    }
+  ],
+  "strengths": [
+    "Technical leadership",
+    "Communication and public speaking",
+    "Critical thinking",
+    "Collaborative problem-solving"
+  ]
+}

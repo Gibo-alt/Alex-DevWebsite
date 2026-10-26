@@ -356,3 +356,21 @@ h1.log-title { font-size: clamp(24px, 4.4vw, 46px); letter-spacing: .08em; line-
 .prose .hljs-title, .prose .hljs-function, .prose .hljs-class { color: #8fb4ff; }
 .prose .hljs-comment { color: #9a917c; font-style: italic; }
 @media (max-width: 620px) { .log-article { width: calc(100% - 32px); } .log-pager .btn { flex: 1 1 100%; } }
+
+/* ---------- CV section ---------- */
+.cv-top { align-items: center; margin-bottom: 26px; }
+.cv-label { font: 500 11px var(--font-mono); letter-spacing: .22em; color: var(--khaki-text); margin-bottom: 10px; }
+.cv-top [data-type] { color: var(--ink); max-width: 66ch; }
+.cv-dl { background-color: rgba(255, 255, 255, .85); }
+.cv-meta { color: var(--ink-2); font-size: 13px; line-height: 1.7; margin: 0 0 4px; }
+.cv-grid { grid-template-columns: 1.6fr 1fr; }
+.cv-org { color: var(--ink-2); font-size: 13px; margin: 0 0 12px; }
+.cv-list { padding-left: 0; }
+.cv-list li { position: relative; padding-left: 1.2em; margin-bottom: .55em; color: var(--ink); font-size: 14px; line-height: 1.7; }
+.cv-list li::before { content: "▸"; position: absolute; left: 0; color: var(--khaki-d); }
+.cv-edu li { margin-bottom: 14px; }
+.cv-edu strong { display: block; font: 700 12.5px/1.45 var(--font-head); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.cv-edu span { display: block; color: var(--ink-2); font-size: 13px; }
+.cv-edu em { display: block; color: var(--khaki-text); font-style: normal; font-size: 12px; letter-spacing: .06em; }
+.cv-sub { margin-top: 18px; }
+@media (max-width: 960px) { .cv-grid { grid-template-columns: 1fr; } }

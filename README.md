@@ -12,6 +12,8 @@ URL options: `?lite` forces the light 3D scene (phones get it automatically); `?
 index.html            Home page: all real text lives in the HTML (SEO)
 log.html              Mission Log reader: renders one article (?slug=...) in the same interface
 build-logs.py         Regenerates the Mission Logs cards in index.html from blog/posts.json
+build-cv.py           Builds the CV PDF + the CV and Systems sections of index.html from data/cv.json
+data/cv.json          The CV: single source of truth (summary, skills, experience, projects, education)
 css/styles.css        Tokens (white/khaki/blue), glass panels, HUD brackets, buttons, reticle, article prose
 js/main.js            Home entry point: boot -> crawl -> hyperspace -> text effects
 js/log.js             Article page: markdown -> sanitised HTML, code highlight + copy buttons, pager
@@ -24,7 +26,7 @@ js/boot.js, crawl.js  Boot screen and opening crawl
 js/cursor.js          Khaki targeting reticle (hidden on touch)
 js/animations.js      Lenis + ScrollTrigger reveals, jump triggers, card tilt, magnetic buttons, ID-card scan
 js/counters.js, ui.js Count-up stats; mobile nav + HUD
-assets/               Pilot photo (WebP sizes + JPG fallback)
+assets/               Pilot photo (WebP sizes + JPG fallback) and the generated CV PDF
 blog/posts.json       Article index (title, date, tags, excerpt, cover)
 blog/posts/*.md       The articles, in Markdown
 blog/images/          Cover images and figures
@@ -32,6 +34,12 @@ blog/admin.html       Editor to create, edit and delete articles (commits to Git
 build-blog-data.py    Rebuilds blog/posts-data.js (bundle used by the editor)
 Media/                Original photos
 ```
+
+## CV (always in sync with the site)
+- Edit **`data/cv.json`** (summary, skills, experience, projects, education), then run `pip install -r requirements.txt && python3 build-cv.py`.
+- That one command rebuilds `assets/Gerard_Alexander_Gibson_CV.pdf` **and** the CV and Systems sections of `index.html`, so the PDF and the website can't drift apart. The page shows a short revision id (`REV xxxxxxx`) that also appears in the PDF footer.
+- The deploy workflow (`.github/workflows/static.yml`) runs `build-cv.py` and `build-logs.py` on every push, so the published CV always matches the published data.
+- Download buttons: hero, the CV section, contact and footer all link to the PDF.
 
 ## Mission Logs (articles)
 - Articles are Markdown in `blog/posts/`, listed in `blog/posts.json`. The home page shows them as LOG.001, LOG.002... cards; each opens in `log.html?slug=<slug>`.

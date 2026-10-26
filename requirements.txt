@@ -1,0 +1,2 @@
+# Needed only to rebuild the CV PDF (python3 build-cv.py)
+reportlab==4.2.5
